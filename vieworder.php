@@ -4,9 +4,11 @@ include('lib/userhandle.php');
 include('lib/vieworderhandle.php');
 session_start();
 if (!isset($_SESSION['admin'])) {
+  if (!isset($_SESSION['mgmt'])) {
     $message = "Please Log in";
     echo "<script type='text/javascript'>alert('$message');</script>";
-    header("location:loginrequire.php");
+    header("location:loginrequiremgm.php");
+  }
 }
 ?>
 
@@ -143,17 +145,6 @@ if (!isset($_SESSION['admin'])) {
         <ul class="collapse list-unstyled" id="pageSubmenu9">
           <li>
             <a href="viewpayment.php">View </a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <!--OrderTracking management-->
-        <a href="#pageSubmenu10" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;OredrTracking Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu10">
-          <li>
-            <a href="viewordertracking.php">View </a>
           </li>
 
         </ul>

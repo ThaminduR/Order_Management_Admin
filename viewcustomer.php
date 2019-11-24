@@ -2,6 +2,7 @@
 
 include('common/header.php');
 include('lib/customerhandle.php');
+
 session_start();
 if (!isset($_SESSION['admin'])) {
     $message = "Please Log in";
@@ -105,11 +106,15 @@ if (!isset($_SESSION['admin'])) {
                 <!--Order management-->
                 <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Order Mgt</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu6">
-
+                    <li>
+                        <a href="neworder.php">New Order</a>
+                    </li>
                     <li>
                         <a href="vieworder.php">View</a>
                     </li>
-
+                    <li>
+                        <a href="handleorder.php">Handle Order</a>
+                    </li>
                 </ul>
             </li>
 
@@ -149,7 +154,16 @@ if (!isset($_SESSION['admin'])) {
                 </ul>
             </li>
 
+            <li>
+                <!--OrderTracking management-->
+                <a href="#pageSubmenu10" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;OredrTracking Mgt</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu10">
+                    <li>
+                        <a href="viewordertracking.php">View </a>
+                    </li>
 
+                </ul>
+            </li>
 
             <li>
                 <!--Notification management-->
@@ -235,9 +249,6 @@ if (!isset($_SESSION['admin'])) {
                     <th></th>
                 </tr>
             </thead>
-            <?php
-            viewcustomers();
-            ?>
 
         </table>
         <!-- Customer Table End -->
@@ -247,5 +258,95 @@ if (!isset($_SESSION['admin'])) {
 
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var dataTable = $("#tblviewcus").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "lib/customerhandle.php?type=viewCustomer",
+                "type": "POST"
+            },
+            "columns": [{
+                    "data": "0"
+                },
+                {
+                    "data": "1"
+                },
+                {
+                    "data": "2"
+                },
+                {
+                    "data": "3"
+                },
+                {
+                    "data": "4"
+                },
+                {
+                    "data": "5"
+                },
+            ],
+
+            "columnDefs": [{
+                    "data": null,
+                    "defaultContent": "<a href='#' title='Edit'><i class='fa fa-edit'></i></a>",
+                    "targets": 6
+                },
+                {
+                    "data": null,
+                    "defaultContent": "<a href='#' title='Delete'><i style='color:red' class='fa fa-trash'></i></a>",
+                    "targets": 7
+                }
+            ]
+        });
+        $('#sidebarCollapse').on('click', function() {
+            $('#sidebar').toggleClass('active');
+        });
+
+        $("#tblviewcus tbody").on('click', 'a', function() {
+            var type = $(this).attr('title');
+            var data = dataTable.row($(this).parents('tr')).data();
+
+            var cusid = data[0];
+            var fname = data[1];
+            if (type == "Edit") {
+                window.location = "updatecustomer.php?cusid=" + cusid;
+            } else if (type == "Delete") {
+                swal({
+                    title: "Do you want to remove this customer?",
+                    text: "You are trying to remove Customer :" + cusid,
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        var url = "lib/customerhandle.php?type=deleteCus";
+                        $.ajax({
+                            method: "POST",
+                            url: url,
+                            data: {
+                                cusid: cusid
+                            },
+                            dataType: "text",
+                            success: function(result) {
+                                res = result.split(",");
+                                if (res[0] == "0") {
+                                    swal("Error", res[1], "error");
+                                } else if (res[0] == "1") {
+                                    swal("Success", res[1], "success");
+                                    window.location = "viewcustomer.php";
+                                }
+                            },
+                            error: function(eobj, etxt, err) {
+                                console.log(etxt);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>
 
 </html>

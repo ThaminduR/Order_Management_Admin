@@ -16,7 +16,7 @@ header("refresh:1;url=index.php");
 </head>
 
 <body>
-    <h4>Require Admin Login</h4>
+    <h4>Please Login</h4>
 </body>
 
 <script type="text/javascript" src="resources/sweetalert/sweetalert2.all.js"></script>

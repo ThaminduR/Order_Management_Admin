@@ -16,6 +16,8 @@
 </head>
 
 <body>
+
+
 	<div class="box">
 		<h2>Login</h2>
 		<form method="post" action="lib/loginhandle.php">
@@ -58,6 +60,10 @@ if (isset($_SESSION['err'])) {
 <?php
 if (isset($_SESSION['admin'])) {
 	header("location:home.php");
+}
+
+if (isset($_SESSION['mgmt'])) {
+	header("location:vieworder.php");
 }
 
 ?>

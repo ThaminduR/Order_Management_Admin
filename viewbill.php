@@ -4,10 +4,12 @@ require_once('lib/viewinvoicehandle.php');
 
 session_start();
 if (!isset($_SESSION['admin'])) {
-    $message = "Please Log in";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-    header("location:loginrequire.php");
-}
+    if (!isset($_SESSION['mgmt'])) {
+      $message = "Please Log in";
+      echo "<script type='text/javascript'>alert('$message');</script>";
+      header("location:loginrequiremgm.php");
+    }
+  }
 ?>
 <div class="wrapper">
     <!-- Sidebar  -->
