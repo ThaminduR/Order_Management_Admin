@@ -5,7 +5,12 @@ include ("lib/dbconnection.php");
 if(isset($_GET["empid"])){
     $empid = $_GET["empid"];
  }
-
+ session_start();
+ if (!isset($_SESSION['admin'])) {
+     $message = "Please Log in";
+     echo "<script type='text/javascript'>alert('$message');</script>";
+     header("location:loginrequire.php");
+ }
 ?>
 <script type="text/javascript">
         $(document).ready(function(){
@@ -179,15 +184,11 @@ if(isset($_GET["empid"])){
                     <!--Order management-->
                     <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Order Mgt</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu6">
-                        <li>
-                            <a href="neworder.php">New Order</a>
-                        </li>
+                        
                         <li>
                             <a href="vieworder.php">View</a>
                         </li>
-                        <li>
-                            <a href="handleorder.php">Handle Order</a>
-                        </li>
+                        
                     </ul>
                 </li>
 
@@ -227,16 +228,7 @@ if(isset($_GET["empid"])){
                     </ul>
                 </li>
 
-                <li>
-                    <!--OrderTracking management-->
-                    <a href="#pageSubmenu10" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;OredrTracking Mgt</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu10">
-                        <li>
-                            <a href="viewordertracking.php">View </a>
-                        </li>
-                        
-                    </ul>
-                </li>
+                
 
                 <li>
                     <!--Notification management-->

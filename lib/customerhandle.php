@@ -1,25 +1,26 @@
 <?php
 require_once("dbconnection.php");
 
-if(isset($_GET["type"])){
+if (isset($_GET["type"])) {
 	$type = $_GET["type"];
 	$type();
 }
 
 
-function viewCustomer(){
+function viewCustomer()
+{
 	$table = 'tbl_customer';
- 
+
 	// Table's primary key
 	$primaryKey = 'cus_id';
 
 	$columns = array(
-	    array( 'db' => 'cus_id', 'dt' => 0 ),
-	    array( 'db' => 'cus_fname',  'dt' => 1 ),
-	    array( 'db' => 'cus_lname',  'dt' => 2 ),
-	    array( 'db' => 'cus_mobile',  'dt' => 3 ),
-	    array( 'db' => 'cus_address',   'dt' => 4 ),
-		array( 'db' => 'cus_email',    'dt' => 5)	
+		array('db' => 'cus_id', 'dt' => 0),
+		array('db' => 'cus_fname',  'dt' => 1),
+		array('db' => 'cus_lname',  'dt' => 2),
+		array('db' => 'cus_mobile',  'dt' => 3),
+		array('db' => 'cus_address',   'dt' => 4),
+		array('db' => 'cus_email',    'dt' => 5)
 	);
 
 	// SQL server connection information
@@ -30,48 +31,49 @@ function viewCustomer(){
 	$db = Config::$dbname;
 
 	$sql_details = array(
-    	'user' => $uname,
-    	'pass' => $pass,
-    	'db'   => $db,
-    	'host' => $host
+		'user' => $uname,
+		'pass' => $pass,
+		'db'   => $db,
+		'host' => $host
 	);
 
 	require('ssp.class.php');
- 
+
 	echo json_encode(
-    SSP::complex($_POST, $sql_details, $table, $primaryKey, $columns )
+		SSP::complex($_POST, $sql_details, $table, $primaryKey, $columns)
 	);
 }
 
 
 
 // Get Customer start
-    function getCustomer(){
+function getCustomer()
+{
 	$cusid = $_POST['cusid'];
 
 	$conn = DB::connectDB();
-	$sql= "SELECT cus_fname,cus_email,cus_status FROM tbl_customer where cus_id='$cusid';";
+	$sql = "SELECT cus_fname,cus_email,cus_status FROM tbl_customer where cus_id='$cusid';";
 
 	$result = $conn->query($sql);
 
-	if($conn->errno){
-		echo("SQL Error : ".$conn->error);
+	if ($conn->errno) {
+		echo ("SQL Error : " . $conn->error);
 		exit;
 	}
 	$rec = $result->fetch_assoc();
-	echo(json_encode($rec));
+	echo (json_encode($rec));
 	$conn->close();
-
 }
 // Get Customer end
 
 // Update Customer Start
-	function updateCustomer(){
+function updateCustomer()
+{
 	$cusid = $_POST["txtcid"];
-	$cusfname= $_POST["txtname"];
+	$cusfname = $_POST["txtname"];
 	$cusemail = $_POST["txtemail"];
-	$cusstatus =$_POST["optstatus"];
-	
+	$cusstatus = $_POST["optstatus"];
+
 
 	$conn = DB::connectDB();
 
@@ -79,53 +81,54 @@ function viewCustomer(){
 		 cus_status=? WHERE cus_email=? ";
 
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("sis",$cusfname,$cusstatus,$cusemail);
+	$stmt->bind_param("sis", $cusfname, $cusstatus, $cusemail);
 
-	if(!$stmt->execute()){
-		echo("0,SQL Error : ".$stmt->error);
-	}
-	else{
-		echo("1,Successfully Updated!");
+	if (!$stmt->execute()) {
+		echo ("0,SQL Error : " . $stmt->error);
+	} else {
+		echo ("1,Successfully Updated!");
 	}
 	$stmt->close();
 	$conn->close();
-
 }
 // Update Custommer End
 
 // Delete Customer Start
-	function deleteCus(){
+function deleteCus()
+{
 	$cusid = $_POST["cusid"];
-	$conn= DB::connectDB();
+	$conn = DB::connectDB();
 	$sql = "DELETE FROM tbl_customer WHERE cus_id=?";
 
 	$stmt = $conn->prepare($sql);
-	$stmt->bind_param("s",$cusid);
+	$stmt->bind_param("s", $cusid);
 
-	if(!$stmt->execute()){
-		echo("0,SQL Error : ".$stmt->error);
-	}
-	else{
-		
-		echo("1,Successfully Removed!");
+	if (!$stmt->execute()) {
+		echo ("0,SQL Error : " . $stmt->error);
+	} else {
+
+		echo ("1,Successfully Removed!");
 	}
 	$stmt->close();
 	$conn->close();
 }
 // Delete Customer End
 
+function viewcustomers()
+{
+	$conn = DB::connectDB();
+
+	$sql = "SELECT cus_id,cus_fname,cus_lname,cus_mobile,cus_address,cus_email FROM tbl_customer";
+	$result = $conn->query($sql);
+	$output = "<tr value='cus_id'></tr>";
+	$rows = $result->num_rows;
+	if ($rows > 0) {
+		while ($rec = $result->fetch_assoc()) {
+			$output .= "<tr><td>" . $rec["cus_id"] . "</td><td>" . $rec["cus_fname"] . "</td><td>" . $rec["cus_lname"] . "</td><td>" . $rec["cus_mobile"] . "</td><td>" . $rec["cus_address"] . "</td><td>" . $rec["cus_email"] . "</td></tr>";
+		}
 
 
-
-
-
-
-
-
-
-?>
-
-
-
-
-
+		echo $output;
+		$conn->close();
+	}
+}

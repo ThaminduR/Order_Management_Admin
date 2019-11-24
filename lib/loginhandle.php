@@ -26,7 +26,7 @@
 		header("Location:../index.php");
 	}else{
 		//if username and pwd are correct create session and redirct to home
-		$_SESSION['user_info'] = $result->fetch_assoc();
+		$_SESSION['admin'] = $result->fetch_assoc();
 		header("Location:../home.php");
 	}
 

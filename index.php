@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html>
-	<head>
+
+<head>
 	<meta charset="utf-8">
-	<title>Input form UI Design</title>
+	<title>Login</title>
 
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 	<link rel="stylesheet" type="text/css" href="resources/sweetalert/sweetalert2.css">
 	<style type="text/css">
-		
-		body{
+		body {
 			background: url(image/index.jpg);
 			background-size: cover;
 		}
 	</style>
 </head>
-<body>
 
-	
+<body>
 	<div class="box">
 		<h2>Login</h2>
 		<form method="post" action="lib/loginhandle.php">
@@ -39,23 +38,29 @@
 <?php
 session_start();
 
-if(isset($_SESSION['err'])){
+if (isset($_SESSION['err'])) {
 
-?>
+	?>
 
 	<script type="text/javascript">
 		Swal.fire({
-	  		type: 'error',
-	  		title: 'Oops...',
-	  		text: 'Invalid Username or Password!',
-	})
+			type: 'error',
+			title: 'Oops...',
+			text: 'Invalid Username or Password!',
+		})
 	</script>
 
 <?php
 	unset($_SESSION['err']);
-	}
+}
 ?>
 
+<?php
+if (isset($_SESSION['admin'])) {
+	header("location:home.php");
+}
+
+?>
 <!-- login error message end -->
 
 </html>
