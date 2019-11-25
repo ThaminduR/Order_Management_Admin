@@ -13,7 +13,7 @@ if (!isset($_POST['username'])) {
 $username = $_POST['username'];
 $pwd = md5($_POST['user_pwd']); //convert pwd to md5 hash
 
-if ($username == "Admin") { }
+
 
 $result = $con->query("SELECT * FROM tbl_users WHERE usr_name='$username' AND user_pass='$pwd'");
 
