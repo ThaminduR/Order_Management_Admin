@@ -408,7 +408,7 @@ if (!isset($_SESSION['admin'])) {
                         $("#txtntot").val(ntot);
 
                         $("#invdetails").append(row);
-                        resetctrl();
+                        //resetctrl();
                     
                         }                 
                     },

@@ -438,7 +438,7 @@ if (!isset($_SESSION['admin'])) {
          row +="</tr>";
 
         $("#grndetails").append(row);
-        resetctrl();
+        //resetctrl();
 
     });
     $("#grndetails").on("click",".remove",function(){ // after load page if click remove run function
