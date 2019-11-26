@@ -34,7 +34,7 @@ function getId(){
 
 function addProdImage(){
 	$cat_id = $_POST['cmbcat'];
-	$prod_id = $_POST['cmbpro'];
+	$pro_id = $_POST['cmbpro'];
 	$pro_rlevel = $_POST['txteid'];
 	$sub_cat_id= $_POST['cmbsub'];
 	$color =$_POST['cmbclr'];
