@@ -138,69 +138,6 @@ if (!isset($_SESSION['admin'])) {
           </li>
         </ul>
       </li>
-
-      <li>
-        <!--Payment management-->
-        <a href="#pageSubmenu9" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-cc-visa" aria-hidden="true"></i>&nbsp;Payment Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu9">
-          <li>
-            <a href="viewpayment.php">View </a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <!--Notification management-->
-        <a href="#pageSubmenu11" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-bell-o" aria-hidden="true"></i>&nbsp;Notification Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu11">
-          <li>
-            <a href="viewnotification.php">View </a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <!--Feedback management-->
-        <a href="#pageSubmenu12" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-comments" aria-hidden="true"></i>&nbsp;Feedback Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu12">
-          <li>
-            <a href="viewfeedback.php">View </a>
-          </li>
-
-        </ul>
-      </li>
-
-      <li>
-        <!--Report management-->
-        <a href="#pageSubmenu13" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-line-chart" aria-hidden="true"></i>&nbsp;Report Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu13">
-          <li>
-            <a href="emprpt.php">Employee</a>
-          </li>
-          <li>
-            <a href="reportproduct.php">Product</a>
-          </li>
-
-
-        </ul>
-      </li>
-
-      <li>
-        <!--Backup management-->
-        <a href="#pageSubmenu14" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Backup Mgt</a>
-        <ul class="collapse list-unstyled" id="pageSubmenu14">
-          <li>
-            <a href="viewbackupmanagement.php">View </a>
-          </li>
-
-        </ul>
-      </li>
-    </ul>
-    </li>
-    </li>
-    </li>
     </ul>
   </nav>
 

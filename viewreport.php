@@ -1,10 +1,14 @@
 <?php
 include 'common/header.php';
+require_once('lib/viewinvoicehandle.php');
+
 session_start();
 if (!isset($_SESSION['admin'])) {
-    $message = "Please Log in";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-    header("location:loginrequire.php");
+    if (!isset($_SESSION['mgmt'])) {
+        $message = "Please Log in";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        header("location:loginrequiremgm.php");
+    }
 }
 ?>
 <div class="wrapper">
@@ -112,7 +116,7 @@ if (!isset($_SESSION['admin'])) {
                 </ul>
             </li>
 
-            <li>
+            <li class="active">
                 <!--Billing management-->
                 <a href="#pageSubmenu7" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-money" aria-hidden="true"></i></i>&nbsp;Billing Mgt</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu7">
@@ -124,7 +128,7 @@ if (!isset($_SESSION['admin'])) {
                 </ul>
             </li>
 
-            <li class="active">
+            <li>
                 <!--Product management-->
                 <a href="#pageSubmenu8" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-shopping-bag" aria-hidden="true"></i>&nbsp;Product Mgt</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu8">
@@ -142,11 +146,11 @@ if (!isset($_SESSION['admin'])) {
     </nav>
     <script type="text/javascript">
         $(document).ready(function() {
-            var dataTable = $("#tblviewproduct").DataTable({
+            var dataTable = $("#tblviewinvoice").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "lib/viewprodhandle.php?type=viewProd",
+                    "url": "lib/viewinvoicehandle.php?type=viewInvoice",
                     "type": "POST"
                 },
                 "columns": [{
@@ -158,30 +162,34 @@ if (!isset($_SESSION['admin'])) {
                     {
                         "data": "2"
                     },
+                    {
+                        "data": "3"
+                    },
+                    {
+                        "data": "4"
+                    },
                 ],
                 "columnDefs": [{
                         "data": null,
-                        "defaultContent": "<a href='#' title='Edit'><i style='color:black' class='fa fa-edit'></i></a>",
-                        "targets": 3
-                    },
-                    {
-                        "data": null,
                         "defaultContent": "<a href='#' title='Delete'><i style='color:red' class='fa fa-trash'></i></a>",
-                        "targets": 4
-                    }
+                        "targets": 5
+                    },
+                    // {
+                    // "data":null,
+                    // "defaultContent": "<a href='#' title='Delete'><i style='color:red' class='fa fa-trash'></i></a>",
+                    // "targets": 6
+                    // }
                 ]
             });
         })
     </script>
-
-    <!-- Page Content  -->
     <div id="content">
 
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="viewproduct.php">View Product</a></li>
+                        <li class="breadcrumb-item"><a href="viewbill.php">Dashboard</a></li>
                     </ol>
                 </div>
             </div>
@@ -189,80 +197,8 @@ if (!isset($_SESSION['admin'])) {
 
 
 
-        <!--  </div> -->
-
-        <!-- Product Table Start-->
-
-        <table id="tblviewproduct" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Product Id</th>
-                    <th>Product Name</th>
-                    <th>Re order Level</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-
-        </table>
-    </div>
 
 
-    <!-- Product Table End -->
+        </body>
 
-    </body>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-
-        $("#tblviewproduct tbody").on('click', 'a', function() {
-            var type = $(this).attr('title');
-            var data = dataTable.row($(this).parents('tr')).data();
-            var pid = data[0];
-
-            if (type == "Edit") {
-                window.location = "updateproduct.php";
-                // $("#rpanel").load("view/updateemp.php?empid="+eid);
-            } else if (type == "Delete") {
-
-                swal({
-                    title: "Do you want to remove this invoice?",
-                    text: "You are trying to remove Employee :" + invid,
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        var url = "lib/viewinvoicehandle.php?type=deleteInv";
-                        $.ajax({
-                            method: "POST",
-                            url: url,
-                            data: {
-                                invid: invid
-                            },
-                            dataType: "text",
-                            success: function(result) {
-                                // alert("result");
-                                res = result.split(",");
-                                if (res[0] == "0") {
-                                    swal("Error", res[1], "error");
-                                } else if (res[0] == "1") {
-                                    swal("Success", res[1], "success");
-                                    window.location = "viewbill.php";
-                                }
-                            },
-                            error: function(eobj, etxt, err) {
-                                console.log(etxt);
-                            }
-                        });
-                    }
-                });
-            }
-        });
-    </script>
-
-    </html>
+        </html>
