@@ -41,7 +41,7 @@ if (!isset($_SESSION['admin'])) {
 
       <li>
         <!--User management-->
-      <li class="active">
+      <li>
         <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-user-o" aria-hidden="true"></i></i>&nbsp;User Mgt</a>
         <ul class="collapse list-unstyled" id="pageSubmenu2">
           <li>
@@ -102,15 +102,14 @@ if (!isset($_SESSION['admin'])) {
         </ul>
       </li>
       </li>
-      <li>
+
+      <li class="active">
         <!--Order management-->
         <a href="#pageSubmenu6" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;Order Mgt</a>
         <ul class="collapse list-unstyled" id="pageSubmenu6">
-
           <li>
             <a href="vieworder.php">View</a>
           </li>
-
         </ul>
       </li>
 
@@ -141,50 +140,74 @@ if (!isset($_SESSION['admin'])) {
     </ul>
   </nav>
 
+  <script>
+    $(document).ready(function() {
+      var dataTable = $("#tblvieword").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+          "url": "lib/vieworderhandle.php?type=viewOrder",
+          "type": "POST"
+        },
+        "columns": [{
+            "data": "0"
+          },
+          {
+            "data": "1"
+          },
+          {
+            "data": "2"
+          },
+          {
+            "data": "3"
+          },
+          {
+            "data": "4"
+          },
+        ],
+      });
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar').toggleClass('active');
+      });
+
+
+    });
+  </script>
+
   <!-- Page Content  -->
   <div id="content">
 
-    <!--breadcrumb-->
-    <div class="container-fluid pt-5">
-      <div class="row">
-        <div class="col-sm-12">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="vieworder.php">Orders</a></li>
-          </ol>
-        </div>
-      </div>
-    </div>
+    <!-- Order  Table Start-->
 
+    <table id="tblvieword" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Order Id</th>
+          <th>Order Date</th>
+          <th>Customer ID</th>
+          <th>Delivery Person ID</th>
+          <th>Traacking Status</th>
+        </tr>
+      </thead>
 
-    <!-- User Table Start-->
+    </table>
+
     <div>
-      <table id="tblviewusr" class="table table-striped">
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>Customer ID</th>
-            <th>Delivery Person</th>
-            <th>Delivery Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <?php
-        getOrder();
-        ?>
-      </table>
+      <form action='reports/Orderreportgen.php'> <button type='submit' class="btn btn-primary">
+          Download Report
+        </button></form>
     </div>
+  </div>
 
 
-    <!-- User Table End -->
-    </body>
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
-          $('#sidebar').toggleClass('active');
-        });
+  <!-- Order Table End -->
+  <script>
+    $(document).ready(function() {
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar').toggleClass('active');
       });
-    </script>
+    });
+  </script>
+  </body>
 
-    </html>
+  </html>

@@ -257,6 +257,12 @@ if (!isset($_SESSION['admin'])) {
             </thead>
 
         </table>
+
+        <div>
+            <form action='reports/rep_all_employees.php'> <button type='submit' class="btn btn-primary">
+                    Download Report
+                </button></form>
+        </div>
     </div>
 
 
