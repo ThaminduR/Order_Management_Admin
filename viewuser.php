@@ -170,7 +170,7 @@ if (!isset($_SESSION['admin'])) {
                             }
 
                         },
-                        "targets": 2
+                        "targets": 1
                     },
                     {
                         "data": null,
@@ -294,9 +294,9 @@ if (!isset($_SESSION['admin'])) {
             <table id="tblviewusr" class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>User Name</th>
                         <th>Type</th>
+                        <th>Status</th>
                         <th></th>
                         <th></th>
                         <th></th>
