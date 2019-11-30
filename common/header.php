@@ -43,53 +43,9 @@ include 'common/sessionhandler.php';
 			</button>
 		</span>
 		<div>
-
-			<div class="dropdown" style="display: inline;">
-				<a role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-bell">&nbsp;&nbsp;&nbsp;</i>
-				</a>
-
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink1">
-					<a class="dropdown-item" href="#">aaaas</a>
-					<a class="dropdown-item" href="#">aaaa</a>
-				</div>
+			<div class="" style="display: inline;">
+				<a role="button" href="lib/logout.php" >
+					<i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Log out</a>
 			</div>
-
-
-			<div class="dropdown" style="display: inline;">
-				<a role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-envelope">&nbsp;&nbsp;&nbsp;</i>
-				</a>
-
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink2">
-					<a class="dropdown-item" href="#">aaaas</a>
-					<a class="dropdown-item" href="#">aaaa</a>
-				</div>
-			</div>
-
-
-			<div class="dropdown" style="display: inline;">
-				<a role="button" id="dropdownMenuLink3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<i class="fa fa-user">&nbsp;&nbsp;</i><span class="badge badge-danger"></span>
-				</a>
-
-				<div class="dropdown-menu" style="background-color: #e8ecf1;" aria-labelledby="dropdownMenuLink3">
-					<div class="clearfix">&nbsp;</div>
-					<div style="text-align: center;">
-						<img src="../resources/image/users/<?php
-															if ($user_info['user_img'] == "") {
-																echo 'default.jpg';
-															} else {
-																echo $user_info['user_img'];
-															}
-															?>  " class="profile-pic" width="80px" height="80px">
-					</div>
-					<div class="clearfix">&nbsp;</div>
-					<a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Settings</a>
-					<a class="dropdown-item" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;Activity log</a>
-					<a class="dropdown-item" href="lib/logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Log out</a>
-				</div>
-			</div>
-
 		</div>
 	</div>
