@@ -11,7 +11,7 @@ if (!isset($_POST['username'])) {
 }
 
 $username = $_POST['username'];
-$pwd = md5($_POST['user_pwd']); //convert pwd to md5 hash
+$pwd = ($_POST['user_pwd']); //convert pwd to md5 hash
 
 
 
@@ -36,6 +36,10 @@ if (!$result->num_rows) {
 	if ($username == "Management") {
 		$_SESSION['mgmt'] = $result->fetch_assoc();
 		header("Location:../vieworder.php");
+	}
+	if ($username == "Delivery") {
+		$_SESSION['dlvr'] = $result->fetch_assoc();
+		header("Location:../viewDeliveryorder.php");
 	}
 	
 }
