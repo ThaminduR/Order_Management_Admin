@@ -18,8 +18,7 @@ function getOrder()
         while ($rec = $result->fetch_assoc()) {
             $output .= "<tr><td>" . $rec["order_id"] . "</td><td>" . $rec["order_dot"] . "</td><td>" . $rec["cus_id"] . "</td><td>" . $rec["deliver_person_id"] . "</td><td>" . $rec["track_status"] . "</td></tr><br>";
         }
-
-
+        
         return $output;
         $conn->close();
     } else {
