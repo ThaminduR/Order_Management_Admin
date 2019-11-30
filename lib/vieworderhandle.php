@@ -6,7 +6,7 @@ function getOrder()
 {
     $conn = DB::connectDB();
 
-    $sql = "SELECT order_id, order_dot,cus_id,deliver_person_id,track_status FROM (tbl_order NATURAL JOIN tbl_delivery) JOIN tbl_order_track USING(deli_id);";
+    $sql = "SELECT order_id, order_dot,cus_id,deliver_person_id,track_status,product_id,qty FROM (tbl_order NATURAL JOIN order_product) JOIN tbl_order_track USING(deli_id);";
     $result = $conn->query($sql);
     $output = "<tr value='order_id'></tr>";
     $rows = $result->num_rows;
