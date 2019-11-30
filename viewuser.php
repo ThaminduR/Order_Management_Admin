@@ -159,7 +159,7 @@ if (!isset($_SESSION['admin'])) {
 
                 ],
                 "columnDefs": [{
-                        "data": 2,
+                        "data": 1,
                         "render": function(data, type, row) {
                             if (data === '1') {
                                 return "<p>Admin</p>";
