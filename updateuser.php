@@ -229,9 +229,11 @@ if (!isset($_SESSION['admin'])) {
         <label for="cmbtype" class="col-sm-2 col-form-label">Type</label>
         <div class="col-sm-3">
           <select class="form-control border-primary" name="cmbtype" id="cmbtype">
+
             <option value="1">Admin</option>
             <option value="2">Manager</option>
-            <option value="3">Sales Assistant</option>
+            <option value="3">Cashier</option>
+            <option value="4">Delivery</option>
           </select>
         </div>
       </div>

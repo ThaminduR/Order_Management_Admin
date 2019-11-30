@@ -191,6 +191,7 @@ if (!isset($_SESSION['admin'])) {
                         <option value="1">Admin</option>
                         <option value="2">Manager</option>
                         <option value="3">Cashier</option>
+                        <option value="4">Delivery</option>
                     </select>
                 </div>
             </div>
