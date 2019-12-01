@@ -39,7 +39,7 @@ if (!$result->num_rows) {
 	}
 	if ($username == "Delivery") {
 		$_SESSION['dlvr'] = $result->fetch_assoc();
-		header("Location:viewDeliveryorder.php");
+		header("Location:../viewDeliveryorder.php");
 	}
 	
 }
