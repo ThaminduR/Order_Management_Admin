@@ -11,7 +11,7 @@ if (!isset($_POST['username'])) {
 }
 
 $username = $_POST['username'];
-$pwd = ($_POST['user_pwd']); //convert pwd to md5 hash
+$pwd = md5($_POST['user_pwd']); //convert pwd to md5 hash
 
 
 
@@ -41,5 +41,4 @@ if (!$result->num_rows) {
 		$_SESSION['dlvr'] = $result->fetch_assoc();
 		header("Location:../viewDeliveryorder.php");
 	}
-	
 }

@@ -85,9 +85,7 @@ if (!isset($_SESSION['admin'])) {
                     <li>
                         <a href="viewsupplier.php">View</a>
                     </li>
-                    <li>
-                        <a href="viewstock.php">View Stock</a>
-                    </li>
+                    
                 </ul>
             </li>
 
@@ -102,9 +100,7 @@ if (!isset($_SESSION['admin'])) {
                     <li>
                         <a href="viewgrn.php">View Grn</a>
                     </li>
-                    <li>
-                        <a href="viewstock.php">View Stock</a>
-                    </li>
+                    
 
                 </ul>
             </li>
