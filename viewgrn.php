@@ -1,6 +1,7 @@
 <?php
-include 'common/header.php';
-include('lib/viewsuphandle.php');
+include('common/header.php');
+include('lib/employeehandle.php');
+// include ('lib/addemployeehandle.php');
 session_start();
 if (!isset($_SESSION['admin'])) {
     $message = "Please Log in";
@@ -8,25 +9,24 @@ if (!isset($_SESSION['admin'])) {
     header("location:loginrequire.php");
 }
 ?>
-<div class="wrapper">
+
+
+<div class="wrapper" style="padding-top: 5px;">
     <!-- Sidebar  -->
     <nav id="sidebar">
         <div class="sidebar-header">
             <a>Dashboard</a>
         </div>
 
-
         <ul class="list-unstyled components">
             <!--Dashboard-->
-            <li class="active">
+            <li>
                 <a href="home.php"><i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;Dashboard</a>
             </li>
-
-
-
-
-            <!--Employee management-->
             <li>
+
+                <!--Employee management-->
+            <li class="active">
                 <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Employee Mgt</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu1">
                     <li>
@@ -54,7 +54,6 @@ if (!isset($_SESSION['admin'])) {
 
             <li>
                 <!--Supplier management-->
-            <li class="active">
                 <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Supplier Mgt</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu3">
                     <li>
@@ -63,7 +62,7 @@ if (!isset($_SESSION['admin'])) {
                     <li>
                         <a href="viewsupplier.php">View</a>
                     </li>
-                    
+
                 </ul>
             </li>
 
@@ -78,7 +77,7 @@ if (!isset($_SESSION['admin'])) {
                     <li>
                         <a href="viewgrn.php">View Grn</a>
                     </li>
-                    
+
 
                 </ul>
             </li>
@@ -137,13 +136,13 @@ if (!isset($_SESSION['admin'])) {
             </li>
         </ul>
     </nav>
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
-            var dataTable = $("#tblviewsup").DataTable({
+            var dataTable = $("#tblviewgrn").DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "lib/viewsuphandle.php?type=viewSupplier",
+                    "url": "lib/grnhandle.php?type=viewgrn",
                     "type": "POST"
                 },
                 "columns": [{
@@ -155,83 +154,46 @@ if (!isset($_SESSION['admin'])) {
                     {
                         "data": "2"
                     },
+                    {
+                        "data": "3"
+                    },
+                    {
+                        "data": "4"
+                    },
                 ],
-                "columnDefs": [{
-                    "data": null,
-                    "defaultContent": "<a href='#' title='Delete'><i style='color:red' class='fa fa-trash'></i></a>",
-                    "targets": 3
-                }]
+                
+            });
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
             });
 
-            //        $('#sidebarCollapse').on('click', function () {
-            //         $('#sidebar').toggleClass('active');
-            // });
-
-            $("#tblviewsuptbody").on('click', 'a', function() {
-                var type = $(this).attr('title');
-                var data = dataTable.row($(this).parents('tr')).data();
-                var supid = data[0];
-
-                if (type == "Delete") {
-                    swal({
-                        title: "Do you want to remove this employee?",
-                        text: "You are trying to remove Employee :" + supid,
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true
-                    }).then((willDelete) => {
-                        if (willDelete) {
-                            var url = "lib/viewsuphandle.php?type=deleteSup";
-                            $.ajax({
-                                method: "POST",
-                                url: url,
-                                data: {
-                                    supid: supid
-                                },
-                                dataType: "text",
-                                success: function(result) {
-                                    res = result.split(",");
-                                    if (res[0] == "0") {
-                                        swal("Error", res[1], "error");
-                                    } else if (res[0] == "1") {
-                                        swal("Success", res[1], "success");
-                                        window.location = "viewsupplier.php";
-                                    }
-                                },
-                                error: function(eobj, etxt, err) {
-                                    console.log(etxt);
-                                }
-                            });
-                        }
-                    });
-                }
-            });
         });
     </script>
-
 
     <!-- Page Content  -->
     <div id="content">
 
-        <div class="container-fluid">
+        <!--breadcrumb-->
+        <div class="container-fluid pt-5">
             <div class="row">
                 <div class="col-sm-12">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="viewsupplier.php">View supplier</a></li>
+                        <li class="breadcrumb-item"><a href="viewemployee.php">view employee</a></li>
                     </ol>
                 </div>
             </div>
         </div>
 
-        <!-- Supplier Table Start-->
+        <!-- Employee Table Start-->
 
-        <table id="tblviewsup" class="table table-striped">
+        <table id="tblviewgrn" class="table table-striped">
             <thead>
                 <tr>
-                    <th>Sup Id</th>
-                    <th>Sup Name</th>
-                    <th>Sup Mobile</th>
-                    <th>Delete</th>
+                    <th>GRN Id</th>
+                    <th>Supplier Id</th>
+                    <th>GRN Received Date</th>
+                    <th>GRN G Total</th>
+                    <th>GRN N Total</th>
                 </tr>
             </thead>
 
@@ -239,21 +201,23 @@ if (!isset($_SESSION['admin'])) {
     </div>
 
 
-    <!-- Supplier Table End -->
+    <!-- Employee Table End -->
 
-</div>
-
-
-
-
-</body>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#sidebarCollapse').on('click', function() {
-            $('#sidebar').toggleClass('active');
+    </body>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').toggleClass('active');
+            });
         });
-    });
-</script>
+    </script>
 
-</html>
+
+
+    <!--Delete function End-->
+
+
+
+
+
+    </html>
