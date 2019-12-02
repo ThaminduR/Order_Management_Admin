@@ -1,15 +1,15 @@
 <?php
 include('common/header.php');
 include('lib/userhandle.php');
-include('lib/dbconnection.php');
 include('lib/deliveryHandle.php');
-session_start();
+include_once('lib/dbconnection.php');
+// session_start();
 if (!isset($_SESSION['dlvr'])) {
-  if (!isset($_SESSION['mgmt'])) {
-    $message = "Please Log in";
-    echo "<script type='text/javascript'>alert('$message');</script>";
-    header("location:loginrequiremgm.php");
-  }
+    if (!isset($_SESSION['mgmt'])) {
+        $message = "Please Log in";
+        echo "<script type='text/javascript'>alert('$message');</script>";
+        header("location:loginrequiremgm.php");
+    }
 }
 ?>
 
@@ -47,14 +47,9 @@ if (!isset($_SESSION['dlvr'])) {
 
 
     });
-  </script>
+  </script> -->
 
-  <!-- Page Content  -->
-  <div id="content">
-
-    <!-- Order  Table Start-->
-
-    <table id="tblvieword" class="table table-striped">
+<table id="tblvieword" class="table table-striped">
       <thead>
         <tr>
           <th>Order Id</th>
@@ -62,7 +57,11 @@ if (!isset($_SESSION['dlvr'])) {
           <th>Customer ID</th>
           <th>Delivery Person ID</th>
           <th>Tracking Status</th>
-          <th>Set Delivery Status</th>
+          <th>Set Delivery Status
+            
+
+
+          </th>
         </tr>
       </thead>
 
@@ -72,11 +71,13 @@ if (!isset($_SESSION['dlvr'])) {
   </div>
 
 
-  <!-- Order Table End -->
-  <script>
+
+
+
+<script>
     $(document).ready(function() {
-      $('#sidebarCollapse').on('click', function() {
-        $('#sidebar').toggleClass('active');
-      });
+        $('#sidebarCollapse').on('click', function() {
+            $('#sidebar').toggleClass('active');
+        });
     });
-  </script>
+</script>

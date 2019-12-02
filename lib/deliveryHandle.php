@@ -1,4 +1,4 @@
-SELECT * FROM tbl_delivery NATURAL JOIN tbl_order_track WHERE track_status="Dispatched"
+<!-- SELECT * FROM tbl_delivery NATURAL JOIN tbl_order_track WHERE track_status="Dispatched" -->
 
 <?php
 require_once("dbconnection.php");
@@ -17,9 +17,10 @@ function getOrder()
     $rows = $result->num_rows;
     if ($rows > 0) {
         while ($rec = $result->fetch_assoc()) {
-            $output .= "<tr><td>" . $rec["order_id"] . "</td><td>" . $rec["order_dot"] . "</td><td>" . $rec["cus_id"] . "</td><td>" . $rec["deliver_person_id"] . "</td><td>" . $rec["track_status"] . "</td></tr><br>";
+            $output .= "<tr><td>" . $rec["order_id"] . "</td><td>" . $rec["order_dot"] . "</td><td>" . $rec["cus_id"] . "</td><td>" . $rec["deliver_person_id"] . "</td><td>" . $rec["track_status"] . "</td><td>" . $rec["order_dot"] . "</td></tr><br>";
+            echo "</tr>";
         }
-        
+
         return $output;
         $conn->close();
     } else {
@@ -39,7 +40,7 @@ function viewOrder()
         array('db' => 'order_dot',  'dt' => 1),
         array('db' => 'cus_id',  'dt' => 2),
         array('db' => 'deliver_person_id',   'dt' => 3),
-        array('db' => 'track_status',    'dt' => 4)
+        array('db' => 'deliver_person_id',    'dt' => 4)
     );
 
     // SQL server connection information
@@ -67,6 +68,7 @@ function viewOrder()
 function updateStatus()
 {
     $conn = DB::connectDB();
+
     $sql = "UPDATE track_status FROM ordersview WHERE order_id=$order_id";;
     $result = $conn->query($sql);
     $output = "<tr value='deli_id'></tr>";
@@ -75,10 +77,12 @@ function updateStatus()
         while ($rec = $result->fetch_assoc()) {
             $output .= "<tr><td>" . $rec["order_id"] . "</td><td>" . $rec["order_dot"] . "</td><td>" . $rec["cus_id"] . "</td><td>" . $rec["deliver_person_id"] . "</td><td>" . $rec["track_status"] . "</td></tr><br>";
         }
-        
+
         return $output;
         $conn->close();
     } else {
         return "No Records";
     }
 }
+
+
